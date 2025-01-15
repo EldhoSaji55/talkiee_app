@@ -15,16 +15,20 @@ class ChatScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
         child: Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: ColorConstants.white,
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ContactScreen(),
-              ));
-        },
-        child: Icon(Icons.people_alt_outlined),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndDocked,
+      floatingActionButton: Align(
+        alignment: Alignment(1, 0.7),
+        child: FloatingActionButton(
+          backgroundColor: ColorConstants.white,
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ContactScreen(),
+                ));
+          },
+          child: Icon(Icons.people_alt_outlined),
+        ),
       ),
       body: Column(
         children: [

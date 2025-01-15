@@ -20,55 +20,62 @@ class AppBottomNavigation extends ConsumerWidget {
     // List for Body Screens
     final List<Widget> screens = [CallsScreen(), ChatScreen(), MeScreen()];
     return Scaffold(
-      bottomNavigationBar: AnimatedNotchBottomBar(
-        color: ColorConstants.white,
-        kBottomRadius: 28,
-        kIconSize: 24,
-        notchBottomBarController:
-            NotchBottomBarController(index: selectedIndex),
-        bottomBarItems: [
-          const BottomBarItem(
-            inActiveItem: Icon(
-              Icons.phone_in_talk_outlined,
-              color: ColorConstants.blueGrey,
-            ),
-            activeItem: Icon(
-              Icons.phone_in_talk_rounded,
-              color: Colors.green,
-            ),
-            itemLabel: 'Call',
-          ),
-          const BottomBarItem(
-            inActiveItem: Icon(
-              Icons.chat_bubble_outline_outlined,
-              color: ColorConstants.blueGrey,
-            ),
-            activeItem: Icon(
-              Icons.chat,
-              color: Colors.blueAccent,
-            ),
-            itemLabel: 'Chats',
-          ),
+      extendBody: true, //transparent body change
 
-          ///svg item
-          BottomBarItem(
-            inActiveItem: Icon(
-              Icons.face_unlock_outlined,
-              color: ColorConstants.blueGrey,
-            ),
-            activeItem: Icon(
-              Icons.face_sharp,
-              color: ColorConstants.yellow,
-            ),
-            itemLabel: 'Me',
+      body: Stack(children: [
+        screens[selectedIndex],
+        Positioned(
+          bottom: 0,
+          child: AnimatedNotchBottomBar(
+            color: const Color.fromRGBO(255, 255, 255, 1),
+            kBottomRadius: 28,
+            kIconSize: 24,
+            notchBottomBarController:
+                NotchBottomBarController(index: selectedIndex),
+            bottomBarItems: [
+              const BottomBarItem(
+                inActiveItem: Icon(
+                  Icons.phone_in_talk_outlined,
+                  color: ColorConstants.blueGrey,
+                ),
+                activeItem: Icon(
+                  Icons.phone_in_talk_rounded,
+                  color: Colors.green,
+                ),
+                itemLabel: 'Call',
+              ),
+              const BottomBarItem(
+                inActiveItem: Icon(
+                  Icons.chat_bubble_outline_outlined,
+                  color: ColorConstants.blueGrey,
+                ),
+                activeItem: Icon(
+                  Icons.chat,
+                  color: Colors.blueAccent,
+                ),
+                itemLabel: 'Chats',
+              ),
+
+              ///svg item
+              BottomBarItem(
+                inActiveItem: Icon(
+                  Icons.face_unlock_outlined,
+                  color: ColorConstants.blueGrey,
+                ),
+                activeItem: Icon(
+                  Icons.face_sharp,
+                  color: ColorConstants.yellow,
+                ),
+                itemLabel: 'Me',
+              ),
+            ],
+            onTap: (value) {
+              // updating the selected index value
+              ref.read(selectedIndexProvider.notifier).state = value;
+            },
           ),
-        ],
-        onTap: (value) {
-          // updating the selected index value
-          ref.read(selectedIndexProvider.notifier).state = value;
-        },
-      ),
-      body: screens[selectedIndex],
+        )
+      ]),
     );
   }
 }
